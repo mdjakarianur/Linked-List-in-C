@@ -4,8 +4,7 @@ struct Node {
 	int data;
 	struct Node *next;
 };
-int main()
-{
+int main(){
 	struct Node* head = NULL;
 	struct Node* second = NULL;
 	struct Node* third = NULL;
