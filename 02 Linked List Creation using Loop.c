@@ -2,8 +2,7 @@
 #include <malloc.h>
 #include <stdlib.h>
 
-void main()
-{
+void main(){
   struct node
     {
         int num;
