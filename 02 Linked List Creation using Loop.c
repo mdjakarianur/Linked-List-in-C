@@ -1,48 +1,42 @@
 #include <stdio.h>
-#include <malloc.h>
 #include <stdlib.h>
 
-void main(){
-  struct node
-    {
-        int num;
-        int *ptr;
-   };
-    typedef struct node NODE;
+int main() {
+    struct node {
+        int data;
+        struct node *next;
+    };
 
-    NODE *head, *first, *temp = 0;
-    int count = 0;
+    struct node *head, *first, *temp = NULL;
     int choice = 1;
-    first = 0;
-    while (choice)
-    {
-        head  = (NODE *)malloc(sizeof(NODE)); 
-        printf("memory we get = %d\n",head);
-        printf("Enter a data element to insert into the Linked List\n");
-        scanf("%d", &head->num);
 
-        if (first != 0)
-        {
-            temp->ptr = head;
+    first = NULL;
+
+    while (choice) {
+        head = (struct node*)malloc(sizeof(struct node));
+
+        printf("Enter element to insert into the linked list: ");
+        scanf("%d", &head->data);
+        head->next = NULL;
+
+        if (first != NULL) {
+            temp->next = head;
             temp = head;
-        }
-        else
-        {
+        } else {
             first = temp = head;
         }
-        fflush(stdin);
-        printf("Do you want to continue(Type 0 to exit or any integer to continue)?\n");
+
+        printf("Do you want to continue (Type 1 to continue or 0 to exit)? : ");
         scanf("%d", &choice);
     }
-    temp->ptr = 0;
+
     temp = first;
-    printf("\n status of the linked list is\n");
-    while (temp != 0)
-    {
-        printf("[%d]   [%d]",temp,temp->num);
-        count++;
-        temp = temp->ptr;
+    printf("\nThe linked list elements are: \n");
+    while (temp != NULL) {
+        printf("[%d] -> ",temp->data);
+        temp = temp->next;
     }
     printf("[NULL]\n");
-    printf("No. of nodes in the list = %d\n", count);
+
+    return 0;
 }
