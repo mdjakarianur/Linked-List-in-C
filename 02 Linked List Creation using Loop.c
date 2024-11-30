@@ -7,10 +7,8 @@ int main() {
         struct node *next;
     };
 
-    struct node *head, *first, *temp = NULL;
+    struct node *head, *first=NULL, *temp = NULL;
     int choice = 1;
-
-    first = NULL;
 
     while (choice) {
         head = (struct node*)malloc(sizeof(struct node));
