@@ -163,7 +163,7 @@ int main() {
     struct node* head = NULL;
     int choice, data, position;
     bool found;
-
+    
     while(1) {
         printf("\n--- Singly Linked List Operations ---\n");
         printf("1. Print List\n");
@@ -181,7 +181,6 @@ int main() {
             printf("Invalid input. Exiting.\n");
             break;
         }
-
         switch(choice){
             case 1:
                 display(head);
@@ -233,6 +232,5 @@ int main() {
                 printf("Invalid choice. Try again.\n");
         }
     }
-
     return 0;
 }
