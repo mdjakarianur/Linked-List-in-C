@@ -72,7 +72,7 @@ bool searchNode(struct Node** head_ref, int key) {
 void sortLinkedList(struct Node** head_ref) {
   struct Node *current = *head_ref, *index = NULL;
   int temp;
-
+  
   if (head_ref == NULL) {
     return;
   } else {
@@ -91,6 +91,4 @@ void sortLinkedList(struct Node** head_ref) {
     }
   }
 }
-
-// 
 
