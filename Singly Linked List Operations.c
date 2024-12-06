@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 struct node {
     int data;
@@ -66,20 +65,19 @@ void deleteFromBeginning(struct node** head_first) {
     free(temp);
 }
 
-// Function to delete a node from the end
-void deleteFromEnd(struct node** head_ref) {
-    if(*head_ref == NULL){
-        printf("List is empty. Nothing to delete.\n");
+void deleteFromEnd(struct node** head_first) {
+    if(*head_first == NULL){
+        printf("List is empty.\n");
         return;
     }
-    if((*head_ref)->next == NULL){
-        printf("Deleted %d from the end.\n", (*head_ref)->data);
-        free(*head_ref);
-        *head_ref = NULL;
+    if((*head_first)->next == NULL){
+        printf("Deleted %d from the end.\n", (*head_first)->data);
+        free(*head_first);
+        *head_first = NULL;
         return;
     }
 
-    struct node* temp = *head_ref;
+    struct node* temp = *head_first;
     while(temp->next->next != NULL){
         temp = temp->next;
     }
@@ -88,10 +86,9 @@ void deleteFromEnd(struct node** head_ref) {
     temp->next = NULL;
 }
 
-// Function to delete a node from a specific position
-void deleteAtPosition(struct node** head_ref, int position) {
-    if(*head_ref == NULL){
-        printf("List is empty. Nothing to delete.\n");
+void deleteAtPosition(struct node** head_first, int position) {
+    if(*head_first == NULL){
+        printf("List is empty.\n");
         return;
     }
     if(position < 1){
@@ -99,10 +96,10 @@ void deleteAtPosition(struct node** head_ref, int position) {
         return;
     }
 
-    struct node* temp = *head_ref;
+    struct node* temp = *head_first;
 
     if(position == 1){
-        *head_ref = temp->next;
+        *head_first = temp->next;
         printf("Deleted %d from position %d.\n", temp->data, position);
         free(temp);
         return;
@@ -121,24 +118,22 @@ void deleteAtPosition(struct node** head_ref, int position) {
     free(nodeToDelete);
 }
 
-// Function to search for a node with given key
-bool searchNode(struct node* head, int key) {
+int searchNode(struct node* head, int value) {
     struct node* current = head;
 
     while (current != NULL) {
-        if (current->data == key) return true;
+        if (current->data == value) return 1;
         current = current->next;
     }
-    return false;
+    return 0;
 }
 
-// Function to sort the linked list
 void sortLinkedList(struct node* head) {
     struct node *current = head, *index = NULL;
     int temp_data;
 
     if(head == NULL){
-        printf("List is empty. Nothing to sort.\n");
+        printf("List is empty.\n");
         return;
     }
 
@@ -147,7 +142,6 @@ void sortLinkedList(struct node* head) {
 
         while(index != NULL) {
             if(current->data > index->data) {
-                // Swap data
                 temp_data = current->data;
                 current->data = index->data;
                 index->data = temp_data;
@@ -161,11 +155,10 @@ void sortLinkedList(struct node* head) {
 
 int main() {
     struct node* head = NULL;
-    int choice, data, position;
-    bool found;
+    int choice, data, position, found;
     
     while(1) {
-        printf("\n--- Singly Linked List Operations ---\n");
+        printf("\nSingly Linked List Operations\n");
         printf("1. Print List\n");
         printf("2. Insert at Beginning\n");
         printf("3. Insert at End\n");
@@ -226,8 +219,7 @@ int main() {
                 sortLinkedList(head);
                 break;
             case 10:
-                exit(0);
-                break;
+                return 1;
             default:
                 printf("Invalid choice. Try again.\n");
         }
