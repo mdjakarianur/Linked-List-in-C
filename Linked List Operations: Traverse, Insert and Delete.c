@@ -1,7 +1,4 @@
-
-
-// Traverse a Linked List
-
+//print element
 struct node *temp = head;
 printf("\n\nList elements are - \n");
 while(temp != NULL) {
@@ -10,7 +7,6 @@ while(temp != NULL) {
 }
 
 // Insert at the beginning
-
 struct node *newNode;
 newNode = malloc(sizeof(struct node));
 newNode->data = 4;
@@ -18,7 +14,6 @@ newNode->next = head;
 head = newNode;
 
 // Insert at the End
-
 struct node *newNode;
 newNode = malloc(sizeof(struct node));
 newNode->data = 4;
@@ -28,17 +23,14 @@ struct node *temp = head;
 while(temp->next != NULL){
   temp = temp->next;
 }
-
 temp->next = newNode;
 
 // Insert at the Middle
-
 struct node *newNode;
 newNode = malloc(sizeof(struct node));
 newNode->data = 4;
 
 struct node *temp = head;
-
 for(int i=2; i < position; i++) {
   if(temp->next != NULL) {
     temp = temp->next;
@@ -48,9 +40,7 @@ newNode->next = temp->next;
 temp->next = newNode;
 
 // Delete from beginning
-
 head = head->next;
-
 struct node* temp = head;
 while(temp->next->next!=NULL){
   temp = temp->next;
@@ -58,17 +48,14 @@ while(temp->next->next!=NULL){
 temp->next = NULL;
 
 // Delete from middle
-
 for(int i=2; i< position; i++) {
   if(temp->next!=NULL) {
     temp = temp->next;
   }
 }
-
 temp->next = temp->next->next;
 
 // Search an Element on a Linked List
-
 // Search a node
 bool searchNode(struct Node** head_ref, int key) {
   struct Node* current = *head_ref;
@@ -81,7 +68,6 @@ bool searchNode(struct Node** head_ref, int key) {
 }
 
 // Sort Elements of a Linked List
-
 / Sort the linked list
 void sortLinkedList(struct Node** head_ref) {
   struct Node *current = *head_ref, *index = NULL;
@@ -91,7 +77,6 @@ void sortLinkedList(struct Node** head_ref) {
     return;
   } else {
     while (current != NULL) {
-      // index points to the node next to current
       index = current->next;
 
   	while (index != NULL) {
