@@ -1,39 +1,61 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 struct node {
     int data;
     struct node* next;
 };
 
-void add(struct node** head_first, int new_data) {
+void add(struct node** head, int data) {
     struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    newNode->data = new_data;
+    newNode->data = data;
     newNode->next = NULL;
 
-    if (*head_first == NULL) {
-        *head_first = newNode;
+    if (*head == NULL) {
+        *head = newNode;
         return;
     }
 
-    struct node* temp = *head_first;
+    struct node* temp = *head;
     while (temp->next != NULL) {
         temp = temp->next;
     }
     temp->next = newNode;
 }
 
-void delete(struct node** head_first, int position) {
-    if (*head_first == NULL) {
+void insert(struct node** head, int data, int position) {
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    newNode->data = data;
+
+    if (position == 1) {
+        newNode->next = *head;
+        *head = newNode;
+        return;
+    }
+
+    struct node* temp = *head;
+    for (int i = 1; i < position - 1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Position is out of range.\n");
+        return;
+    }
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+void delete(struct node** head, int position) {
+    if (*head == NULL) {
         printf("List is empty.\n");
         return;
     }
 
-    struct node* temp = *head_first;
+    struct node* temp = *head;
 
     if (position == 1) {
-        *head_first = temp->next;
-        free(temp);
+        *head = temp->next;
         return;
     }
 
@@ -48,31 +70,6 @@ void delete(struct node** head_first, int position) {
 
     struct node* nodeToDelete = temp->next;
     temp->next = nodeToDelete->next;
-    free(nodeToDelete);
-}
-
-void insert(struct node** head_first, int new_data, int position) {
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
-    newNode->data = new_data;
-
-    if (position == 1) {
-        newNode->next = *head_first;
-        *head_first = newNode;
-        return;
-    }
-
-    struct node* temp = *head_first;
-    for (int i = 1; i < position - 1 && temp != NULL; i++) {
-        temp = temp->next;
-    }
-
-    if (temp == NULL) {
-        printf("Position is out of range.\n");
-        return;
-    }
-
-    newNode->next = temp->next;
-    temp->next = newNode;
 }
 
 void display(struct node* head) {
@@ -88,16 +85,6 @@ void display(struct node* head) {
         temp = temp->next;
     }
     printf("NULL\n");
-}
-
-int search(struct node* head, int value) {
-    struct node* current = head;
-
-    while (current != NULL) {
-        if (current->data == value) return 1;
-        current = current->next;
-    }
-    return 0;
 }
 
 void sort(struct node* head) {
@@ -125,6 +112,16 @@ void sort(struct node* head) {
     printf("List has been sorted.\n");
 }
 
+int search(struct node* head, int value) {
+    struct node* current = head;
+
+    while (current != NULL) {
+        if (current->data == value) return 1;
+        current = current->next;
+    }
+    return 0;
+}
+
 int main() {
     struct node* head = NULL;
     int choice, data, position, found;
@@ -132,11 +129,11 @@ int main() {
     while(1) {
         printf("\nLinkedList Operations\n");
         printf("1. Add\n");
-        printf("2. Delete\n");
-        printf("3. Insert\n");
+        printf("2. Insert\n");
+        printf("3. Delete\n");
         printf("4. Display\n");
-        printf("5. Search\n");
-        printf("6. Sort\n");
+        printf("5. Sort\n");
+        printf("6. Search\n");
         printf("7. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -148,21 +145,25 @@ int main() {
                 add(&head, data);
                 break;
             case 2:
-                printf("Enter position to delete: ");
-                scanf("%d", &position);
-                delete(&head, position);
-                break;
-            case 3:
                 printf("Enter position to insert: ");
                 scanf("%d", &position);
                 printf("Enter data: ");
                 scanf("%d", &data);
                 insert(&head, data, position);
                 break;
+            case 3:
+                printf("Enter position to delete: ");
+                scanf("%d", &position);
+                delete(&head, position);
+                break;
+
             case 4:
                 display(head);
                 break;
             case 5:
+                sort(head);
+                break;
+            case 6:
                 printf("Enter element to search: ");
                 scanf("%d", &data);
                 found = search(head, data);
@@ -170,9 +171,6 @@ int main() {
                     printf("Element %d found.\n", data);
                 else
                     printf("Element %d not found.\n", data);
-                break;
-            case 6:
-                sort(head);
                 break;
             case 7:
                 return 1;
