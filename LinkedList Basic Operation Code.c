@@ -38,11 +38,6 @@ void insert(struct node** head, int data, int position) {
         temp = temp->next;
     }
 
-    if (temp == NULL) {
-        printf("Position is out of range.\n");
-        return;
-    }
-
     newNode->next = temp->next;
     temp->next = newNode;
 }
@@ -62,11 +57,6 @@ void delete(struct node** head, int position) {
 
     for (int i = 1; i < position - 1 && temp != NULL; i++) {
         temp = temp->next;
-    }
-
-    if (temp == NULL || temp->next == NULL) {
-        printf("Position is out of range.\n");
-        return;
     }
 
     struct node* nodeToDelete = temp->next;
@@ -176,7 +166,7 @@ int main() {
             case 7:
                 return 1;
             default:
-                printf("Invalid choice. Try again.\n");
+                printf("Invalid choice. Try again!\n");
         }
     }
     return 0;
