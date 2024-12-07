@@ -1,50 +1,49 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct node {
+struct node{
     int data;
-    struct node* next;
+    struct node*next;
 };
 void add(struct node** head, int data){
-    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+    struct node* newNode=(struct node*)malloc(sizeof(struct node));
     newNode->data=data;
     newNode->next=NULL;
     
     if(*head==NULL){
         *head=newNode;
     }else{
-        struct node* temp = *head;
-        while(temp->next!=NULL){
-            temp=temp->next;
-        }
-        temp->next = newNode;
+    struct node* temp = *head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=newNode;
     }
 }
 void display(struct node* head){
-    if(head==NULL){
-        printf("LInkedList is empty.\n");
+    if (head==NULL){
+        printf("Empty");
         return;
     }
-    struct node* temp=head;
+    struct node* temp = head;
     while(temp!=NULL){
-        printf("%d ->", temp->data);
+        printf("%d -> ", temp->data);
         temp=temp->next;
     }
     printf("NULL\n");
 }
-void insert (struct node** head, int data, int position){
-struct node* newNode = (struct node*)malloc(sizeof(struct node));
+void insert(struct node** head, int data, int position){
+    struct node* newNode=(struct node*)malloc(sizeof(struct node));
     newNode->data=data;
-    struct node* temp = *head;
-    for (int i=1; i<position -1 && temp!=NULL; i++){
+    struct node* temp=*head;
+    for(int i=1;i<position-1&&temp!=NULL;i++){
         temp=temp->next;
-    } 
+    }
     newNode->next=temp->next;
     temp->next=newNode;
 }
 void delete(struct node** head, int position){
     if(*head==NULL){
-        printf("linkedList is empty.\n");
+        printf("Empty");
         return;
     }
     struct node* temp = *head;
@@ -55,33 +54,31 @@ void delete(struct node** head, int position){
     for(int i=1; i<position-1&&temp!=NULL;i++){
         temp=temp->next;
     }
-    struct node* toDelete = temp->next;
-    temp->next=toDelete->next;
+    struct node* todelete = temp->next;
+    temp->next=todelete->next;
+    
 }
-
-int search (struct node* head, int value){
-    struct node* temp = head;
+void search(struct node** head, int value){
+    struct node* temp = *head;
     while(temp!=NULL){
-        if(temp->data==value) return 1;
-            temp=temp->next;
+        if(temp->data==value){
+            printf("Fuond");
+            return;
         }
-        return 0;
+        temp=temp->next;
+    }
+    printf("Not Found");
 }
 int main(){
-    int found;
-    struct node* head = NULL;
+    struct node* head=NULL;
     add(&head,10);
     add(&head,20);
-    add(&head,30);
     display(head);
-    insert(&head,25,2);
+    insert(&head, 15,2);
     display(head);
-    delete(&head,3);
+    delete(&head, 2);
     display(head);
-    found = search(head,2);
-                if (found)
-                    printf("Found.\n");
-                else
-                    printf("Not Found.\n");
+    search(&head, 5);
+    
     return 0;
 }
